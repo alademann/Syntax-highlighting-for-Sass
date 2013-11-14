@@ -10,6 +10,8 @@
 	<string>/\*|^#|^\*|^\b|^\.</string>
 	<key>foldingStopMarker</key>
 	<string>\*/|^\s*$</string>
+	<key>keyEquivalent</key>
+	<string>^~S</string>
 	<key>name</key>
 	<string>SCSS</string>
 	<key>patterns</key>
@@ -35,6 +37,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#double-dash-em</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#double-quoted</string>
 		</dict>
 		<dict>
@@ -52,6 +58,10 @@
 		<dict>
 			<key>include</key>
 			<string>#variable-library</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#variable-setting</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -74,6 +84,13 @@
 			<string>(?&lt;=@include)\s[a-zA-Z0-9_-]+</string>
 			<key>name</key>
 			<string>support.function.name.sass.library</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;=$)[a-zA-Z0-9_-](\s*|\t*)\:+</string>
+			<!-- <string>(\s*|\t*)(\$[a-zA-Z0-9_-]+\b)(\s*|\t*)(\:)(\s*|\t*)</string> -->
+			<key>name</key>
+			<string>support.variable.name.sass.library, variable.other.library, variable.in.project</string>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -176,6 +193,23 @@
 		</dict>
 		<dict>
 			<key>match</key>
+			<string>\b(a|abbr|acronym|address|area|article|aside|applet|audio|b|base|bdo|big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|datalist|dd|del|details|dfn|div|dl|dt|em|embed|fieldset|figcaption|figure|footer|form|(h[1-6])|head|header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|link|main|map|mark|menu|meta|meter|nav|noscript|object|ol|optgroup|option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|source|span|strike|strong|style|sub|summary|sup|svg|table|tbody|td|template|textarea|tfoot|th|thead|time|title|tr|tt|u|ul|var|video)\b</string>
+			<key>name</key>
+			<string>entity.other.attribute-name.tag.css.sass</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolation</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#pseudo-class</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>(?&lt;=\]|\)|not\():[a-z:-]+|::[a-z:-]+</string>
 			<key>name</key>
 			<string>entity.other.attribute-name.pseudo-class.css.sass</string>
@@ -192,6 +226,10 @@
 				<dict>
 					<key>include</key>
 					<string>#double-dash</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#double-dash-em</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -212,6 +250,10 @@
 				<dict>
 					<key>include</key>
 					<string>#variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variable-setting</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -244,6 +286,10 @@
 				<dict>
 					<key>include</key>
 					<string>#operator</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolation</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -318,11 +364,27 @@
 		<key>double-dash</key>
 		<dict>
 			<key>begin</key>
-			<string>//</string>
+			<string>(\s*)//(?!\+)</string>
 			<key>end</key>
 			<string>$\n?</string>
 			<key>name</key>
-			<string>comment.line.double-dash.sass</string>
+			<string>comment.line.double-dash.sass, comment.line.scss</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comment-tag</string>
+				</dict>
+			</array>
+		</dict>
+		<key>double-dash-em</key>
+		<dict>
+			<key>begin</key>
+			<string>(\s*)//\+</string>
+			<key>end</key>
+			<string>$(\s*)</string>
+			<key>name</key>
+			<string>comment.line.double-dash.em.sass, comment.line.em.scss</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -339,6 +401,13 @@
 			<string>"</string>
 			<key>name</key>
 			<string>string.quoted.double.css.sass</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolation</string>
+				</dict>
+			</array>
 		</dict>
 		<key>flag</key>
 		<dict>
@@ -379,7 +448,27 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#single-quoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#double-quoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#numeric</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#operator</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#function</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#function-content</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -434,6 +523,13 @@
 			<string>'</string>
 			<key>name</key>
 			<string>string.quoted.single.css.sass</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolation</string>
+				</dict>
+			</array>
 		</dict>
 		<key>unit</key>
 		<dict>
@@ -451,10 +547,107 @@
 		</dict>
 		<key>variable</key>
 		<dict>
-			<key>match</key>
-			<string>\$[a-zA-Z0-9_-]+</string>
+			<key>begin</key>
+			<string>(\w|\d|\t*|\s*)(\$)([a-zA-Z0-9_-]+\b)\s*</string>
+			<key>captures</key>
+			<dict>
+			    <key>2</key>
+			    <dict>
+			        <key>name</key>
+			        <string>variable.other</string>
+			    </dict>
+			    <key>3</key>
+			    <dict>
+			        <key>name</key>
+			        <string>variable.other.name</string>
+			    </dict>
+			</dict>
+			<key>end</key>
+			<string>\s*(?=(\;|\,|\:|\s*|\}))</string>
 			<key>name</key>
 			<string>variable.other</string>
+		</dict>
+		<key>variable-setting</key>
+		<dict>
+			<key>begin</key>
+			<string>(\s*|\t*)(\$[a-zA-Z0-9_-]+\b)(\s*|\t*)(\:)(\s*|\t*)</string>
+			<key>captures</key>
+			<dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.definition</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.name.definition</string>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>meta.property-list.css.sass</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\s*|\t*</string>
+			<key>name</key>
+			<string>meta.set.variable</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#single-quoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#double-quoted</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#numeric</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#operator</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#function</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#function-content</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#unit</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#rgb-value</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#flag</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#comma</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolation</string>
+				</dict>
+				<dict>
+                    <key>include</key>
+                    <string>$self</string>
+                </dict>
+			</array>
 		</dict>
 	</dict>
 	<key>scopeName</key>
